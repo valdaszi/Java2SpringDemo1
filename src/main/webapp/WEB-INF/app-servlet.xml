@@ -3,28 +3,52 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <mvc:annotation-driven />
-
+    <!-- context:component-scan - allow @Component, @Service, @Controller, etc.. annotations -->
     <context:component-scan base-package="lt.bta.java2" />
 
+    <!-- context:annotation-config - allow us to use @Autowire, @Required and @Qualifier annotations
+    Will not search for the beans registration, this will only activate the already registered beans in the context
+    -->
+    <context:annotation-config />
+
+    <!-- mvc:annotation-driven - declares explicit support for annotation-driven MVC controllers (i.e. @RequestMapping,
+    @Controller, although support for those is the default behaviour), as well as adding support for declarative
+    validation via @Valid and message body marshalling with @RequestBody/ResponseBody
+
+    If you don’t include mvc:annotation-driven then also your MVC application would work, if you have used
+    the context:component-scan for creating the beans or defined the beans in your XML file.
+
+    But, mvc:annotation-driven does some extra job on configuring the special beans that would not have been configured
+    if you are not using this element in your XML file.
+    This tag would register the HandlerMapping and HandlerAdapter required to dispatch requests to your @Controllers.
+    In addition, it also applies some defaults based on what is present in your classpath.
+
+    Daugiau info: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html -->
+    <mvc:annotation-driven />
+
+    <!-- mvc:default-servlet-handler - allows for mapping the DispatcherServlet to / (thus overriding the mapping of
+    the container’s default Servlet), while still allowing static (!) resource requests to be handled by the container’s
+    default Servlet.
+
+    https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-default-servlet-handler
+
+    pvz.: webapp/static.html puslapis butu neprieinamas -->
     <mvc:default-servlet-handler />
 
+    <!-- konfiguruojame kur ieskoti view failu -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- nustatome kaip tvarkingai jackson turi dirbti su datomis, t.y. disablinam com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS -->
     <bean id="customObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
         <property name="featuresToDisable">
             <array value-type="com.fasterxml.jackson.databind.SerializationFeature">
