@@ -1,10 +1,8 @@
 <html>
 <head>
-    <title>Spring MVC Demo 1</title>
+    <title>Spring Data JPA Demo 2</title>
 </head>
 <body>
-    <h3>
-        <a href="hi">Eiti pasisveikinti ... </a>
-    </h3>
+    <h2>Spring Data JPA Demo 2</h2>
 </body>
 </html>

@@ -5,17 +5,45 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:8080/spring1/person/json
+POST http://localhost:8080/spring2/employee
+Accept: application/json
+Content-Type: application/json
+
+{
+  "birthDate": "2000-01-01",
+  "firstName": "Jonas",
+  "lastName": "Jonaitis",
+  "gender": "M",
+  "hireDate": "2018-01-02"
+}
+
+###
+
+GET http://localhost:8080/spring2/employee/500023
 Accept: application/json
 
 ###
 
-GET http://localhost:8080/spring1/some/123
+PUT http://localhost:8080/spring2/employee/500023
+Accept: application/json
+Content-Type: application/json
+
+{
+  "birthDate": "2000-01-02",
+  "firstName": "Jąnč",
+  "lastName": "Žšęmūtė",
+  "gender": "M",
+  "hireDate": "2018-01-02"
+}
+
+###
+
+GET http://localhost:8080/spring2/employee/list?page=250&size=3
 Accept: application/json
 
 ###
 
-GET http://localhost:8080/spring1/some/456?name=Petras
+GET http://localhost:8080/spring2/employee/hire/1985-05-16
 Accept: application/json
 
 ###

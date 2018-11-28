@@ -8,7 +8,8 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd"
+>
 
     <!-- context:component-scan - allow @Component, @Service, @Controller, etc.. annotations -->
     <context:component-scan base-package="lt.bta.java2" />
@@ -55,7 +56,8 @@
                 <value>WRITE_DATES_AS_TIMESTAMPS</value>
             </array>
         </property>
-        <property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />
+        <!--<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />-->
+        <property name="modulesToInstall" value="com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module" />
     </bean>
 
     <mvc:annotation-driven>
