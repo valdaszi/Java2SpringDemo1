@@ -19,6 +19,27 @@
     -->
     <context:annotation-config />
 
+    <!-- mvc:default-servlet-handler - allows for mapping the DispatcherServlet to / (thus overriding the mapping of
+    the container’s default Servlet), while still allowing static (!) resource requests to be handled by the container’s
+    default Servlet.
+
+    https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-default-servlet-handler
+
+    pvz.: webapp/static.html puslapis butu neprieinamas -->
+    <mvc:default-servlet-handler />
+
+
+    <!-- nustatome kaip tvarkingai jackson turi dirbti su datomis, t.y. disablinam com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS -->
+    <bean id="customObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="featuresToDisable">
+            <array value-type="com.fasterxml.jackson.databind.SerializationFeature">
+                <value>WRITE_DATES_AS_TIMESTAMPS</value>
+            </array>
+        </property>
+        <!--<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />-->
+        <property name="modulesToInstall" value="com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module" />
+    </bean>
+
     <!-- mvc:annotation-driven - declares explicit support for annotation-driven MVC controllers (i.e. @RequestMapping,
     @Controller, although support for those is the default behaviour), as well as adding support for declarative
     validation via @Valid and message body marshalling with @RequestBody/ResponseBody
@@ -32,34 +53,6 @@
     In addition, it also applies some defaults based on what is present in your classpath.
 
     Daugiau info: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html -->
-    <mvc:annotation-driven />
-
-    <!-- mvc:default-servlet-handler - allows for mapping the DispatcherServlet to / (thus overriding the mapping of
-    the container’s default Servlet), while still allowing static (!) resource requests to be handled by the container’s
-    default Servlet.
-
-    https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-default-servlet-handler
-
-    pvz.: webapp/static.html puslapis butu neprieinamas -->
-    <mvc:default-servlet-handler />
-
-    <!-- konfiguruojame kur ieskoti view failu -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-    <!-- nustatome kaip tvarkingai jackson turi dirbti su datomis, t.y. disablinam com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS -->
-    <bean id="customObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
-        <property name="featuresToDisable">
-            <array value-type="com.fasterxml.jackson.databind.SerializationFeature">
-                <value>WRITE_DATES_AS_TIMESTAMPS</value>
-            </array>
-        </property>
-        <!--<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />-->
-        <property name="modulesToInstall" value="com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module" />
-    </bean>
-
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -67,5 +60,12 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+
+    <!-- konfiguruojame kur ieskoti view failu -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
 </beans>
