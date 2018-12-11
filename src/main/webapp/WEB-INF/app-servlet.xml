@@ -15,8 +15,7 @@
     <context:component-scan base-package="lt.bta.java2" />
 
     <!-- context:annotation-config - allow us to use @Autowire, @Required and @Qualifier annotations
-    Will not search for the beans registration, this will only activate the already registered beans in the context
-    -->
+    Will not search for the beans registration, this will only activate the already registered beans in the context -->
     <context:annotation-config />
 
     <!-- mvc:default-servlet-handler - allows for mapping the DispatcherServlet to / (thus overriding the mapping of
@@ -62,7 +61,7 @@
     </mvc:annotation-driven>
 
 
-    <!-- konfiguruojame kur ieskoti view failu -->
+    <!-- konfiguruojame 'bean' kuris apraso kur ieskoti view failu -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
