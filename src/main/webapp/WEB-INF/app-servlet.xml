@@ -35,8 +35,7 @@
                 <value>WRITE_DATES_AS_TIMESTAMPS</value>
             </array>
         </property>
-        <!--<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />-->
-        <property name="modulesToInstall" value="com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module" />
+        <!--<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module" />-->
     </bean>
 
     <!-- mvc:annotation-driven - declares explicit support for annotation-driven MVC controllers (i.e. @RequestMapping,

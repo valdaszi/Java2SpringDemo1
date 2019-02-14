@@ -12,11 +12,11 @@ import java.util.Date;
 public class Some {
 
     @GetMapping("/{id}")
-    public Thing getThing(@PathVariable int id, @RequestParam(value = "name", required = false) String name) {
+    public Thing getThing(@PathVariable int id, @RequestParam(name = "name", required = false) String x) {
         Thing thing = new Thing();
 
         thing.setId(id);
-        thing.setName(name != null ? name : "Jonas");
+        thing.setName(x != null ? x : "Jonas");
         thing.setNumber(1234.56789);
 
         thing.setOld(new Date());
